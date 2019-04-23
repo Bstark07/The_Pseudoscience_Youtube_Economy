@@ -2,13 +2,13 @@
     "UCwZDSEpPvE398OLazdituKQ": {
         "channel_title": "VAXXED TV",
         "channel_type": "channel",
-        "video_list": false,
+        "video_list": true,
         "video_views": false
     },
     "UCGW2Yqy7GvjDg92HdW9urdA": {
         "channel_title": "LarryCook333",
         "channel_type": "channel",
-        "video_list": false,
+        "video_list": true,
         "video_views": false
     },
     "madinmikala": {
@@ -270,7 +270,7 @@
         "video_views": false
     },
     "UCaasFoY9yYQpOfL00N3nSxg": {
-        "channel_title": "UFOTV\u00ae The Disclosure Network",
+        "channel_title": "UFOTV\u00c2\u00ae The Disclosure Network",
         "channel_type": "channel",
         "video_list": false,
         "video_views": false

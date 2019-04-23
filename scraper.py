@@ -1,12 +1,8 @@
-
-from bs4 import BeautifulSoup
-
 import requests
 import time 
 import csv
 import json
 import sys
-
 
 import os
 import googleapiclient.discovery
@@ -36,21 +32,23 @@ def main():
         # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    
+    #Generate Fresh Channel List.
+    # spreadsheet_to_json()
+    t1 = "UCGW2Yqy7GvjDg92HdW9urdA"
+    t2 = "madinmikala"
+    print(get_channel_details(t2))
 
     # Create a dict object from the json channel list
-    with open('data/channel-list.json') as json_file:
-        channel_data = json.load(json_file)
-        channel_list = []
-        for i in channel_data.keys():
-            if channel_data[i]["video_list"] == False:
-                channel_list.append(i)
-    json_file.close()
+    # with open('data/channel-list.json') as json_file:
+    #     channel_data = json.load(json_file)
+    #     channel_list = []
+    #     for i in channel_data.keys():
+    #         if channel_data[i]["video_list"] == False:
+    #             channel_list.append(i)
+    # json_file.close()
 
-    print(channel_list)
-    print(len(channel_list))
-
-    # print(channel_list)
-    # parse_channel_list()
+    # parse_channel_list(channel_list)
     
     
 
@@ -124,10 +122,19 @@ def spreadsheet_to_json():
 def parse_channel_list(channel_list):
     """ parses a entire channel list for video stat extraction """
 
+    # Create Checklist of Channels not Audited Incase Quota runs out or other reasons
+    channel_parse_list = []
 
+     # Mark channel as done in file.
+    with open('data/channel-list.json', 'r') as json_file:
+        channel_file = json.load(json_file)
+        for i in channel_file:
+            if channel_file[i]["video_list"] == False:
+                channel_parse_list.append(i)
 
+    print(channel_parse_list)
 
-    for channelId in channel_list:
+    for channelId in channel_parse_list:
 
         # Get Channel ID/Uploads Playlist ID
         # Dictionary Format
@@ -136,6 +143,7 @@ def parse_channel_list(channel_list):
 
         # Pull all video data from channel checking for multiple page retrievals.
         video_data = playlist_videos(channel_data['upload_playlist_id'], None)
+
         # Set the amount of pages processed
         channel_data["channel_upload_total_pages"] = loop_counter
 
@@ -149,7 +157,18 @@ def parse_channel_list(channel_list):
         with open("data/channel_videos/"+ channel_data["channel_id"], 'w') as f:
             json.dump(channel_data, f, indent=4)
         
-        # Add channel to the channel-video-checklist file to indicate done.
+        # Mark channel as done in file.
+        with open('data/channel-list.json', 'r') as json_file:
+            channel_file = json.load(json_file)
+            for i in channel_file:
+                # print(i)
+                if i == channelId:
+                    print(channel_file[i])
+                    channel_file[i]["video_list"] = True
+            
+        with open('data/channel-list.json', 'w') as json_file:
+            json.dump(channel_file, json_file, indent=4)
+        print("Channel ID: " + channelId + " Done.")
 
 
 
@@ -239,6 +258,22 @@ def playlist_videos(id, next_page_token):
 
     
     return video_details
+
+def video_view_extraction:
+
+    # check video_boolean completion
+
+
+    #Video File Loop
+
+
+    # Mark Completed
+
+
+    
+
+
+
 
 if __name__ == "__main__":
     main()
