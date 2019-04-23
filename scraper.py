@@ -12,9 +12,6 @@ import googleapiclient.discovery
     note this code has a slow down delay to meet youtube terms of use
 """
 
-# Google Cloud API Key AIzaSyDwfhQg2edBjo1PUw0-poIbKYBQ4mEigRI
-api_key = 'AIzaSyDwfhQg2edBjo1PUw0-poIbKYBQ4mEigRI'
-
 homeo_channel_url = 'https://www.youtube.com/channel/UCi77mTy9Il5eOFUUvgoxICA' + "/videos"
 larger_homeo_url = 'https://www.youtube.com/channel/UCagzdMtT3xLjh2MpZX2L44w' + "/videos"
 
